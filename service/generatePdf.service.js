@@ -1,8 +1,9 @@
-const puppeteer = require("puppeteer");
-const handlebars = require("handlebars");
-const path = require("path");
-const fs = require("fs-extra");
-const { write } = require("../writeConsole");
+import puppeteer from "puppeteer";
+import handlebars from "handlebars";
+import path from "path";
+import fs from "fs-extra";
+import data from "./dummyData.js";
+import write from "../writeConsole.js";
 
 function generatePdf(req, res) {
   const compile = async function (templateName, data) {
@@ -25,7 +26,7 @@ function generatePdf(req, res) {
       const page = await browser.newPage();
 
       // PDF content
-      const content = await compile("index", { title: "hello" });
+      const content = await compile("index", data);
 
       await page.setContent(content, { waitUntil: "networkidle2" });
 
@@ -60,4 +61,4 @@ function generatePdf(req, res) {
   })();
 }
 
-module.exports = generatePdf;
+export default generatePdf;

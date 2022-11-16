@@ -4,4 +4,4 @@ function write(data) {
   process.stdout.write(data);
 }
 
-module.exports = { write };
+export default write;

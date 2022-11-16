@@ -1,5 +1,6 @@
-const express = require("express");
-const generatePdf = require("./service/generatePdf.service");
+import express from "express";
+import generatePdf from "./service/generatePdf.service.js";
+
 const app = express();
 const PORT = 8080;
 

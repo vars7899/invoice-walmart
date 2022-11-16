@@ -26,11 +26,11 @@
       flex-direction: column; align-items: center; } .order-item { width: 100%;
       display: grid; grid-template-columns: 1fr 1fr 1fr 0.1fr; justify-items:
       stretch; gap: 4px; } .order-item-price { display: flex; align-items:
-      center; justify-content: flex-end; } /* order subtotal */ .order-subtotal,
-      .order-tax, .order-total, .order-tend, .order-due { width: 100%; display:
-      grid; grid-template-columns: 1fr 1fr 1fr 0.1fr; justify-items: stretch;
-      gap: 4px; } .order-subtotal-1, .order-subtotal-2, .order-tax-1,
-      .order-tax-2, .order-tax-3, .order-total-1, .order-total-2, .order-tend-1,
+      center; justify-content: flex-end; } .order-subtotal, .order-tax,
+      .order-total, .order-tend, .order-due { width: 100%; display: grid;
+      grid-template-columns: 1fr 1fr 1fr 0.1fr; justify-items: stretch; gap:
+      4px; } .order-subtotal-1, .order-subtotal-2, .order-tax-1, .order-tax-2,
+      .order-tax-3, .order-total-1, .order-total-2, .order-tend-1,
       .order-tend-2, .order-due-1, .order-due-2 { display: flex;
       justify-content: flex-end; } .pay { margin-top: 40px; } .pay-1, .pay-3,
       .pay-4, .pay-5, .pay-6 { display: grid; grid-template-columns: 0.7fr 1fr;
@@ -38,8 +38,8 @@
       .time { margin-top: 20px; display: flex; align-content: center;
       justify-content: space-evenly; } .total-items { margin-top: 20px; display:
       flex; justify-content: center; } .total-items, .total-items > *,
-      .total-items > * > * { font-size: 2rem; } .bar { margin-top: 20px; } /*
-      .bar-1 { display: flex; align-items: center; justify-content: center; } */
+      .total-items > * > * { font-size: 2rem; } .bar { margin-top: 20px; }
+      .bar-1 { display: flex; align-items: center; justify-content: center; }
       .bar-2 { font-family: "Libre Barcode 39 Extended"; font-size: 4rem; }
       .bar-3 { margin-top: -25px; display: flex; align-items: center;
       justify-content: center; text-transform: capitalize; } .qr { margin-top:
@@ -49,7 +49,7 @@
   <body>
     <div class="container">
       <p class="">See back of receipt for your chance to win $1000</p>
-      <p class="id">ID #: <span> 08H34H98NG943BN9 </span></p>
+      <p class="id">ID #: <span class="uppercase"> {{id}} </span></p>
       <div class="dot-line"></div>
       <div class="logo-image-container">
         <div class="logo-image">
@@ -313,87 +313,69 @@ c-112 -18 -197 0 -222 45 -21 39 -15 41 149 41 184 0 179 -3 166 98 -10 79
         </div>
       </div>
       <div class="flex-center brand-phone">
-        <p>( 916 ) 373 - 7838</p>
+        <p>{{outlet_number}}</p>
       </div>
       <div class="flex-center brand-manager uppercase">
-        <p>Manager Garry Pappu</p>
+        <p>Manager {{outlet_manager}}</p>
       </div>
       <div class="brand-address flex-center">
         <div class="brand-address-street uppercase">9479 Truxel RD</div>
-        <div class="brand-address-city">British Columbia CA V3V 2Y7</div>
+        <div class="brand-address-city">{{outlet_city}}</div>
       </div>
       <div class="kiosk-info">
-        <div class="kiosk-info-1">ST# <span> 2335 </span></div>
-        <div class="kiosk-info-2">OP# <span> 348345 </span></div>
-        <div class="kiosk-info-3">TE# <span> 23 </span></div>
-        <div class="kiosk-info-4">TR# <span> 14554 </span></div>
+        <div class="kiosk-info-1">ST#
+          <span> {{counter_details.st}} </span></div>
+        <div class="kiosk-info-2">OP#
+          <span> {{counter_details.op}} </span></div>
+        <div class="kiosk-info-3">TE#
+          <span> {{counter_details.te}} </span></div>
+        <div class="kiosk-info-4">TR#
+          <span> {{counter_details.tr}} </span></div>
       </div>
       <!-- order list items -->
       <div class="order-item-list">
-        <div class="order-item uppercase">
-          <div class="order-item-name">18 ALbuquerq</div>
-          <div class="order-item-id">298347234789</div>
-          <div class="order-item-price">10.54</div>
-          <div class="order-item-symbol">X</div>
-        </div>
-        <div class="order-item uppercase">
-          <div class="order-item-name">18 ALbuquerq</div>
-          <div class="order-item-id">298347234789</div>
-          <div class="order-item-price">10.54</div>
-          <div class="order-item-symbol">X</div>
-        </div>
-        <div class="order-item uppercase">
-          <div class="order-item-name">18 ALbuquerq</div>
-          <div class="order-item-id">298347234789</div>
-          <div class="order-item-price">10.54</div>
-          <div class="order-item-symbol">X</div>
-        </div>
-        <div class="order-item uppercase">
-          <div class="order-item-name">18 ALbuquerq</div>
-          <div class="order-item-id">298347234789</div>
-          <div class="order-item-price">10.54</div>
-          <div class="order-item-symbol">X</div>
-        </div>
-        <div class="order-item uppercase">
-          <div class="order-item-name">18 ALbuquerq</div>
-          <div class="order-item-id">298347234789</div>
-          <div class="order-item-price">10.54</div>
-          <div class="order-item-symbol">X</div>
-        </div>
+        {{#each cart as |item|}}
+          <div class="order-item uppercase">
+            <div class="order-item-name">{{item.name}}</div>
+            <div class="order-item-id">{{item._id}}</div>
+            <div class="order-item-price">{{item.price}}</div>
+            <div class="order-item-symbol">{{item.is_x}}</div>
+          </div>
+        {{/each}}
       </div>
       <!-- total section -->
       <div class="order-subtotal uppercase">
         <div></div>
         <div class="order-subtotal-1">subtotal</div>
-        <div class="order-subtotal-2">52.70</div>
+        <div class="order-subtotal-2">{{subtotal}}</div>
         <div></div>
       </div>
       <!-- tax -->
       <div class="order-tax uppercase">
         <div class="order-tax-1">Tax</div>
         <div class="order-tax-2">7.000 %</div>
-        <div class="order-tax-3">12.00</div>
+        <div class="order-tax-3">{{tax}}</div>
         <div></div>
       </div>
       <!-- total -->
       <div class="order-total uppercase">
         <div></div>
         <div class="order-total-1">total</div>
-        <div class="order-total-2">64.70</div>
+        <div class="order-total-2">{{total}}</div>
         <div></div>
       </div>
       <!-- debit tend -->
       <div class="order-tend uppercase">
         <div></div>
         <div class="order-tend-1">debit  tend</div>
-        <div class="order-tend-2">64.70</div>
+        <div class="order-tend-2">{{debit}}</div>
         <div></div>
       </div>
       <!-- change die -->
       <div class="order-due uppercase">
         <div></div>
         <div class="order-due-1">Change due</div>
-        <div class="order-due-2">64.70</div>
+        <div class="order-due-2">{{change}}</div>
         <div></div>
       </div>
 
@@ -403,7 +385,7 @@ c-112 -18 -197 0 -222 45 -21 39 -15 41 149 41 184 0 179 -3 166 98 -10 79
           <div>EFT debit</div>
           <div>Pay from primary</div>
         </div>
-        <div class="pay-2">64.70 <span>  total purchase</span></div>
+        <div class="pay-2">{{total}} <span>  total purchase</span></div>
         <div class="pay-3">
           <div>account</div>
           <div>**** **** **** 0302</div>
@@ -430,7 +412,7 @@ c-112 -18 -197 0 -222 45 -21 39 -15 41 149 41 184 0 179 -3 166 98 -10 79
 
       <!-- total items -->
       <div class="total-items uppercase">
-        <div># items sold <span> 5 </span></div>
+        <div># items sold<span> {{cart_item}} </span></div>
       </div>
 
       <!-- bar code -->
